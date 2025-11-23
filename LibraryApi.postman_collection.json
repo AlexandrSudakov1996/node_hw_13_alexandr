@@ -263,6 +263,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetUsersWithBooks",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}

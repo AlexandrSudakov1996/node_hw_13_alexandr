@@ -41,3 +41,10 @@ CREATE TABLE books_readers (
     FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
     FOREIGN KEY (reader_id) REFERENCES readers(id) ON DELETE CASCADE
 );
+
+SELECT r.id, r.name, r.email,
+       b.id AS bookId, b.title, b.author, b.genre, b.year, br.pick_date
+FROM readers r
+JOIN books_readers br ON r.id = br.reader_id
+JOIN books b ON b.id = br.book_id
+WHERE br.return_date IS NULL AND b.status = 'on_hand';

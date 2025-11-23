@@ -14,6 +14,13 @@ export class UserController {
         const users = await userServiceSql.getAllUsers();
         res.json(users);
     }
+
+    getUsersWithBooks = async (req: Request, res: Response) => {
+        const usersWithBooks = await userServiceSql.getUsersWithBooks();
+        res.json(usersWithBooks);
+    }
+
 }
+
 
 export const userController = new UserController();
