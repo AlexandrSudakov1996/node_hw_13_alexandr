@@ -1,0 +1,43 @@
+create database java_28_30;
+
+create table books (
+id varchar(36) not null,
+title varchar(30) not null default 'No name',
+author varchar(15) not null default 'Anonimous',
+genre varchar(10) not null default '',
+status varchar(10) not null default 'in_stock',
+primary key (id)
+);
+
+alter table books add column year int unsigned not null default 2000;
+
+
+CREATE TABLE readers (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL
+) AUTO_INCREMENT = 100000000;
+
+
+CREATE TRIGGER check_reader_id
+BEFORE INSERT ON readers
+FOR EACH ROW
+BEGIN
+    IF NEW.id > 999999999 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Reader ID exceeds maximum allowed value';
+    END IF;
+END;
+
+
+
+
+CREATE TABLE books_readers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id VARCHAR(36) NOT NULL,
+    reader_id INT NOT NULL,
+    pick_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    return_date TIMESTAMP NULL,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (reader_id) REFERENCES readers(id) ON DELETE CASCADE
+);
